@@ -16,6 +16,7 @@ from utils.viewsets import PaginatedViewSetMixin
 
 from .models import Product
 from .serializers import ProductSerializer
+from .permissions import AdminWriteOnly
 
 
 class ProductFilter(filters.FilterSet):
@@ -36,3 +37,4 @@ class ProductViewSet(PaginatedViewSetMixin):  # pylint: disable=too-many-ancesto
     serializer_class = ProductSerializer
     filter_class = ProductFilter
     queryset = Product.objects.all()
+    permission_classes = (AdminWriteOnly, )

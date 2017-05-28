@@ -10,6 +10,7 @@ from rest_framework_extensions.mixins import NestedViewSetMixin
 
 from .models import Category
 from .serializers import CategorySerializer
+from product.permissions import AdminWriteOnly
 
 
 class CategoryFilter(django_filters.FilterSet):
@@ -27,7 +28,7 @@ class CategoryViewSet(NestedViewSetMixin, viewsets.ModelViewSet):  # pylint: dis
     """
     Viewset for Category Details
     """
-    permission_classes = (AllowAny,)
+    permission_classes = (AdminWriteOnly, )
     filter_class = CategoryFilter
     serializer_class = CategorySerializer
 
