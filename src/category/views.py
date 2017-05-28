@@ -4,13 +4,13 @@ Category Views
 import django_filters
 
 from rest_framework import viewsets
-from rest_framework.permissions import AllowAny
-from rest_framework_extensions.mixins import NestedViewSetMixin
-
-
 from .models import Category
 from .serializers import CategorySerializer
+from product.models import Product
 from product.permissions import AdminWriteOnly
+from product.serializers import ProductSerializer
+from rest_framework.decorators import detail_route
+from rest_framework.response import Response
 
 
 class CategoryFilter(django_filters.FilterSet):
@@ -24,7 +24,7 @@ class CategoryFilter(django_filters.FilterSet):
         fields = ['name', ]
 
 
-class CategoryViewSet(NestedViewSetMixin, viewsets.ModelViewSet):  # pylint: disable=too-many-ancestors
+class CategoryViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestors
     """
     Viewset for Category Details
     """
@@ -34,3 +34,16 @@ class CategoryViewSet(NestedViewSetMixin, viewsets.ModelViewSet):  # pylint: dis
 
     def get_queryset(self):
         return Category.objects.all()
+
+    @detail_route(url_path="products")
+    def get_products(self, request, pk):
+        products = ProductSerializer(
+            list(Product.objects.filter(category=pk)), many=True)
+
+        return Response(products.data)
+
+    @detail_route(url_path="sub-category")
+    def get_products(self, request, pk):
+        print(pk)
+        self.queryset = self.get_queryset().filter(parent=pk)
+        return Response(CategorySerializer(list(self.queryset), many=True).data)

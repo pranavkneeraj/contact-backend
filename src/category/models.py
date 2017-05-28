@@ -18,4 +18,4 @@ class Category(models.Model):
         return '%s/%s' % (self.parent, self.name) if self.parent else self.name
 
     class Meta:
-        unique_together = ('name', 'parent')
+        unique_together = (('name', 'parent'), )
