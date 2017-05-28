@@ -11,7 +11,7 @@ SECRET_KEY = os.environ.get(
 
 DEFAULT_CONNECTION = dj_database_url.parse(os.environ.get("DATABASE_URL"))
 DATABASES = {"default": DEFAULT_CONNECTION}
-
+DEBUG = True if (os.environ.get("DEBUG", "true").lower() == "true") else False
 ALLOWED_HOSTS = json.loads(os.environ.get("ALLOWED_HOSTS", "[\"*\"]"))
 
 DOMAIN_NAME = os.environ.get("DOMAIN_NAME")
