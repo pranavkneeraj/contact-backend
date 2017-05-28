@@ -39,7 +39,7 @@ urlpatterns = [
     url(r'^admin', admin.site.urls),
     url(r'^auth', include('authentication.urls')),
 ]
-if settings.DEBUG:
+if not settings.DEBUG:
     urlpatterns += [
         url(r'^static/(?P<path>.*)$', serve,
             {'document_root': settings.STATIC_ROOT})
