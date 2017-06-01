@@ -7,7 +7,6 @@ class AdminWriteOnly(permissions.IsAuthenticated):
     """
 
     def has_permission(self, request, view):
-        print(request.method)
         if request.user and (request.user.is_staff or request.user.is_superuser):
             return True
         if request.method.lower() in ["post", "patch", "put", "delete"]:

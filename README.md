@@ -9,7 +9,7 @@ Auth API:
    URL: http://localhost:8000/auth/login
    Request Method : POST
    Data Sample: {"username":"Usernaame", "password":"Password"}
-   Response: 
+   Response:
           {
             "token": "69647b612f876035ae3df73975e06d5f37783e60e54187d5470a847e639b9f8b",
             "user": {
@@ -18,7 +18,7 @@ Auth API:
             "last_name": ""
             }
           }
-          
+
 2. Logout
 URL: https://product-services.herokuapp.com/auth/logout
 Request Method : POST
@@ -57,6 +57,7 @@ data:{}
 7. Category List:
 URL: https://product-services.herokuapp.com/category/
 Request Method : GET
+
 8. Category Detail:
 URL: https://product-services.herokuapp.com/category/id
 Request Method : GET
@@ -67,10 +68,10 @@ Request Method : POST
 headers: {"Authorization":"Token 83d4c101fbe5bd29c72e4d75a0dc9053e75d996cb7b8ddaeac0c88476ebbd156"}
 data:{
         "name": "Beauty",
-        "parent": null 
+        "parent": null
     }
 
-Note: Parent should be the id of another category of which it should be sub category
+Note: Parent should be the id of another category of which it should be sub category or null
 
 10. Category Wise product list
 URL: https://product-services.herokuapp.com/category/id/products
@@ -80,3 +81,10 @@ Request Method : GET
 URL: https://product-services.herokuapp.com/category/id/sub-category
 Request Method : GET
 
+
+
+Authrization:
+
+All Get,  List request has no permissions
+
+But All write(Post,Put, Delete ) permission is given to only admin users
