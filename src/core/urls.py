@@ -19,14 +19,15 @@ from django.conf import settings
 from django.conf.urls import (url, include)
 from django.contrib import admin
 
-from rest_framework_extensions.routers import ExtendedSimpleRouter
+from rest_framework.routers import DefaultRouter
+
 
 from category.views import CategoryViewSet
 from product.views import ProductViewSet
 from authentication.views import UserViewSet
 
 
-router = ExtendedSimpleRouter()  # pylint: disable=invalid-name
+router = DefaultRouter()
 
 router.register(r'product', ProductViewSet, base_name="Product")
 router.register(r'user', UserViewSet, base_name="User")
@@ -35,9 +36,10 @@ router.register(
 
 
 urlpatterns = [
-    url(r'', include(router.urls)),
+    url(r'api/', include(router.urls)),
     url(r'^admin', admin.site.urls),
     url(r'^auth', include('authentication.urls')),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
 if not settings.DEBUG:
     urlpatterns += [
