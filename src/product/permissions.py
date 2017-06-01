@@ -1,7 +1,7 @@
 from rest_framework import permissions
 
 
-class AdminWriteOnly(permissions.IsAuthenticated):
+class AdminWriteOnly(permissions.BasePermission):
     """
     Global permission check for user blogs.
     """
