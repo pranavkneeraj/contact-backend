@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 import os
 import datetime
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from django_sharding_library.sharding_functions import ModBucketingStrategy
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -36,9 +37,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'knox',
     'utils',
+    'django_sharding',
     'authentication',
-    'category',
-    'product',
+    'contact',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -97,7 +98,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+AUTH_USER_MODEL = 'authentication.User'
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 APPEND_SLASH = True
@@ -143,7 +144,9 @@ REST_KNOX = {
     'TOKEN_TTL': datetime.timedelta(hours=12),
     'USER_SERIALIZER': 'knox.serializers.UserSerializer',
 }
+DATABASE_ROUTERS = ['django_sharding_library.router.ShardedRouter']
 
+#DATABASE_ROUTERS = ['core.routers.CoreRouter', ]
 
 BLOCKSIZE = 16
 
@@ -174,3 +177,6 @@ CORS_ALLOW_HEADERS = (
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.sendgrid.net'
+
+# DJANGO_SHARDING_SETTINGS = {"default": {
+#     "BUCKETING_STRATEGY": ModBucketingStrategy('default', DATABASES)}}

@@ -20,23 +20,53 @@ from django.conf.urls import (url, include)
 from django.contrib import admin
 
 from rest_framework.routers import DefaultRouter
-
-
-from category.views import CategoryViewSet
-from product.views import ProductViewSet
+from rest_framework_extensions.routers import ExtendedSimpleRouter
+from rest_framework_nested import routers
+from contact.views import (
+    ContactViewSet, ContactPhoneViewSet, ContactEmailViewSet)
 from authentication.views import UserViewSet
 
+router = ExtendedSimpleRouter()
+(
+    router.register(r'users', UserViewSet, base_name='user_pk')
+    .register(r'contacts',
+              ContactViewSet,
+              base_name='contact',
+              parents_query_lookups=['contact'])
+    .register(r'phones',
+              ContactPhoneViewSet,
+              base_name='users-contact-phone',
+              parents_query_lookups=['phone__contact', 'phone'])
+)
+(
+    router.register(r'users', UserViewSet, base_name='user_pk')
+    .register(r'contacts',
+              ContactViewSet,
+              base_name='contact',
+              parents_query_lookups=['contact'])
+    .register(r'emails',
+              ContactEmailViewSet,
+              base_name='users-contact-phone',
+              parents_query_lookups=['phone__contact', 'phone'])
+)
 
-router = DefaultRouter()
+# router = router = routers.SimpleRouter()
+# router.register(r'user', UserViewSet, base_name="User")
+# contact_router = routers.NestedSimpleRouter(
+#     router, r'user', lookup='user')
+# contact_router.register(r'contact', ContactViewSet,
+#                         base_name='contact')
 
-router.register(r'product', ProductViewSet, base_name="Product")
-router.register(r'user', UserViewSet, base_name="User")
-router.register(
-    r'category', CategoryViewSet, base_name="Category")
+# contact_phone_router = routers.NestedSimpleRouter(
+#     contact_router, r'contact', lookup='contact')
+# contact_phone_router.register(
+#     r'phones', ContactPhoneViewSet, base_name='contact-phones')
 
 
 urlpatterns = [
-    url(r'', include(router.urls)),
+    url(r'^', include(router.urls)),
+    #    url(r'^', include(contact_router.urls)),
+    #   url(r'^', include(contact_phone_router.urls)),
     url(r'^admin', admin.site.urls),
     url(r'^auth', include('authentication.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
