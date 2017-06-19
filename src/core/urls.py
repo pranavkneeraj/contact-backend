@@ -21,7 +21,6 @@ from django.contrib import admin
 
 from rest_framework.routers import DefaultRouter
 from rest_framework_extensions.routers import ExtendedSimpleRouter
-from rest_framework_nested import routers
 from contact.views import (
     ContactViewSet, ContactPhoneViewSet, ContactEmailViewSet)
 from authentication.views import UserViewSet

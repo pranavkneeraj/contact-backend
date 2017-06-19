@@ -29,10 +29,12 @@ class ContactViewSet(NestedViewSetMixin, viewsets.ModelViewSet):  # pylint: disa
             self.shard = Contact.get_shard_from_id(
                 self.kwargs.get('parent_lookup_contact'))
         if self.request.method in ['POST', 'PATCH', 'PUT'] and not self.request.data.get('user'):
-            self.request.data._mutable = True
+            if not type(self.request.data) == dict:
+                self.request.data._mutable = True
             self.request.data['user'] = int(kwargs.get(
                 'parent_lookup_contact'))
-            self.request.data._mutable = False
+            if not type(self.request.data) == dict:
+                self.request.data._mutable = False
         super(ContactViewSet, self).initial(request, args, kwargs)
 
     def get_queryset(self, *args, **kwargs):
@@ -82,13 +84,29 @@ class BaseContactViewset(viewsets.ModelViewSet):
         return response.Response(self.serializer_class(qs[0]).data)
 
     def create(self, request, *args, **kwargs):
-        data = dict(request.data.items())
-        data['contact_id'] = kwargs['parent_lookup_phone']
-        ser = self.serializer_class(data=data)
-        if ser.is_valid():
+        if not type(request.data) == list:
+            data_list = [dict(request.data.items())]
+        else:
+            data_list = request.data
+        res = []
+        print(data_list)
+        exit()
+        for data in data_list:
+            data['contact_id'] = kwargs['parent_loopup_phone']
+            ser = self.serializer_class(data=data)
+            ser.is_valid(raise_exception=True)
             obj = self.model.objects.using(self.shard).create(**ser.data)
-            return response.Response(self.serializer_class(obj.__dict__).data)
-        return response.Response(ser.errors())
+            res.append(self.serializer_class(obj.__dict__).data)
+        print(response.Response(res[0] if len(res) == 1 else res))
+        return response.Response(res[0] if len(res) == 1 else res)
+
+        # data = dict(request.data.items())
+        # data['contact_id'] = kwargs['parent_lookup_phone']
+        # ser = self.serializer_class(data=data)
+        # if ser.is_valid():
+        #     obj = self.model.objects.using(self.shard).create(**ser.data)
+        #     return response.Response(self.serializer_class(obj.__dict__).data)
+        # return response.Response(ser.errors())
 
     def retrieve(self, request, *args, **kwargs):
         try:
@@ -100,6 +118,9 @@ class BaseContactViewset(viewsets.ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         return response.Response(self.serializer_class(list(self.get_queryset(*args, **kwargs).values()), many=True).data)
+
+    def partial_update(self, request, *args, **kwargs):
+        return self.update(self, request, *args, **kwargs)
 
 
 class ContactPhoneViewSet(BaseContactViewset, NestedViewSetMixin):  # pylint: disable=too-many-ancestors
