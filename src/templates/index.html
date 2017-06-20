@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+  <head>
+    <base href="/">
+    <title>Angular Tour of Heroes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href={% static 'styles.css' %}>
+    <link rel="stylesheet" href={% static 'bootstrap.min.css' %}>
+    <!-- Polyfills -->
+    <script src="{{ ANGULAR_URL }}node_modules/core-js/client/shim.min.js"></script>
+
+    <script src="{{ ANGULAR_URL }}node_modules/zone.js/dist/zone.js"></script>
+    <script src="{{ ANGULAR_URL }}node_modules/systemjs/dist/system.src.js"></script>
+
+    <script src="{{ ANGULAR_URL }}src/systemjs.config.js" ></script>
+    <link href="{{ANGULAR_URL}}node_modules/@angular/material/prebuilt-themes/indigo-pink.css" rel="stylesheet">
+
+    <script>
+      System.import('/ng/src/main.js').catch(function(err){ console.error(err); });
+    </script>
+  </head>
+
+  <body>
+    <my-app api_url="{{API_URL}}">Loading...</my-app>
+  </body>
+</html>

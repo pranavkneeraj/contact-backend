@@ -1,0 +1,37 @@
+<div>
+    <md-card>
+        <div class="container">
+            <h2>Contact List</h2>
+            <button style="float:right; margin-bottom:5px;" type="button" class="btn btn-primary" (click)="openForm()">Add Contact</button>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Priamary Conatct</th>
+                        <th>Priamry Email</th>
+                        <th>Secondary Conatct</th>
+                        <th>Secondary Email</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>John</td>
+                        <td>Doe</td>
+                        <td>john@example.com</td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <button type="button" class="btn btn-info" (click)="openDialog()">Update</button>
+                            <button type="button" class="btn btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </md-card>
+
+    <div class="container" *ngIf="isOpen">
+        <contact-details (onClose)="onClose($event)"></contact-details>
+    </div>
+</div>

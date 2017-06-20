@@ -1,0 +1,69 @@
+<h2>Contact Details</h2>
+<form class="example-form">
+    <md-input-container class="example-full-width">
+        <input mdInput placeholder="Contact Name">
+    </md-input-container>
+    <md-card class="example-card col-sm-12" *ngFor="let detail of phoneDetails">
+        <md-grid-list cols="20" rowHeight="100px" >
+            <md-grid-tile [colspan]=4>
+                <md-select placeholder="Phone Type" class="example-full-width md-select-margin">
+                    <md-option *ngFor="let type of phoneTypes" [value]="type.value">
+                        {{type.viewValue}}
+                    </md-option>
+                </md-select>
+            </md-grid-tile>
+            <md-grid-tile>
+
+            </md-grid-tile>
+            <md-grid-tile [colspan]=15>
+                <md-input-container class="example-full-width">
+                    <input mdInput placeholder="Number">
+                </md-input-container>
+
+            </md-grid-tile>
+        </md-grid-list>
+        <button type="button" class="btn btn-primary pull-right" (click)="addPhoneDetail()">
+            <span>Add Phone</span>
+        </button>
+    </md-card>
+    <md-card class="example-card col-sm-12" *ngFor="let detail of phoneDetails">
+        <md-grid-list cols="40" rowHeight="100px" >
+            <md-grid-tile [colspan]=8>
+                <md-select placeholder="Phone Type" class="example-full-width md-select-margin">
+                    <md-option *ngFor="let type of phoneTypes" [value]="type.value">
+                        {{type.viewValue}}
+                    </md-option>
+                </md-select>
+            </md-grid-tile>
+            <md-grid-tile [colspan]=2>
+
+            </md-grid-tile>
+            <md-grid-tile [colspan]=26>
+                <md-input-container class="example-full-width">
+                    <input mdInput placeholder="Email">
+                </md-input-container>
+            </md-grid-tile>
+            <md-grid-tile [colspan]=1>
+
+            </md-grid-tile>
+
+            <md-grid-tile [colspan]=3>
+                <button md-raised-button class="btn btn-default">
+                    <span>Remove</span>
+                </button>
+            </md-grid-tile>
+        </md-grid-list>
+        <button type="button" class="btn btn-primary pull-right" (click)="addEmailDetail()">
+            <span>Add Email</span>
+        </button>
+        <br><br><br><br>
+        <div class="text-center">
+            <button md-raised-button class="btn-success" (click)="close(false)">
+                <span>Save</span>
+            </button>
+            <button md-raised-button class="btn btn-default" (click)="close(false)">
+                <span>Cancel</span>
+            </button>
+        </div>
+    </md-card>
+</form>

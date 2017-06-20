@@ -60,7 +60,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, '..', '..', 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, '..', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -177,6 +177,26 @@ CORS_ALLOW_HEADERS = (
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.sendgrid.net'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'heroes'),
+    os.path.join(BASE_DIR, '..', 'static'),
+    os.path.join(BASE_DIR, '..', 'ui/node_modules'),
+
+)
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
+STATIC_URL = '/static/'
+STATIC_ROOT = 'staticfiles'
+
+
+ANGULAR_URL = '/ng/'
+
+ANGULAR_ROOT = os.path.join(BASE_DIR, '..', 'static/ui')
+
+API_URL = "https://product-services.herokuapp.com/"
 
 # DJANGO_SHARDING_SETTINGS = {"default": {
 #     "BUCKETING_STRATEGY": ModBucketingStrategy('default', DATABASES)}}

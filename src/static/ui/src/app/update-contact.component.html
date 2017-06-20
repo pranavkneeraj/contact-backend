@@ -1,0 +1,44 @@
+<h1 md-dialog-title>
+    Contact Detail
+</h1>
+<div md-dialog-content>
+    <form class="example-form">
+        <md-input-container class="example-full-width">
+            <input mdInput placeholder="Contact Name">
+            </md-input-container>
+            <div>
+                <md-card class="example-card" *ngFor="let detail of phoneDetails">
+                    <md-select placeholder="Phone Type">
+                        <md-option *ngFor="let type of phoneTypes" [value]="type.value">
+                            {{type.viewValue}}
+                        </md-option>
+                    </md-select>
+                    <md-input-container class="example-full-width">
+                        <input mdInput placeholder="Number">
+                    </md-input-container>
+                </md-card>
+                <button type="button" style="margin:10px 0px 10px 0px;" class="btn btn-primary " (click)="addPhoneDetail()">
+                    <span>Add Phone</span>
+                </button>
+            </div>
+        <md-card class="example-card" *ngFor="let detail of emailDetails">
+            <md-select placeholder="Email Type">
+                <md-option *ngFor="let type of emailTypes" [value]="type.value">
+                    {{type.viewValue}}
+                </md-option>
+            </md-select>
+            <md-input-container class="example-full-width">
+                <input mdInput placeholder="Email">
+            </md-input-container>
+        </md-card>
+        <button type="button" style="margin:10px 0px 10px 0px;" class="btn btn-primary" (click)="addEmailDetail()">
+            <span>Add Email</span>
+        </button><br><br><br>
+        <button type="button" class="btn btn-success">
+            <span>Save</span>
+        </button>
+        <button type="button" class="btn btn-default" md-dialog-close>
+            <span>Cancel</span>
+        </button><br>
+    </form>
+</div>

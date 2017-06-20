@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.views.static import serve
 from django.conf import settings
+from django.conf.urls.static import static
 from django.conf.urls import (url, include)
 from django.contrib import admin
 
@@ -24,6 +25,7 @@ from rest_framework_extensions.routers import ExtendedSimpleRouter
 from contact.views import (
     ContactViewSet, ContactPhoneViewSet, ContactEmailViewSet)
 from authentication.views import UserViewSet
+from core.views import *
 
 router = ExtendedSimpleRouter()
 (
@@ -62,13 +64,14 @@ router = ExtendedSimpleRouter()
 #     r'phones', ContactPhoneViewSet, base_name='contact-phones')
 
 
-urlpatterns = [
+urlpatterns = static(settings.ANGULAR_URL, document_root=settings.ANGULAR_ROOT)+ [
     url(r'^', include(router.urls)),
     #    url(r'^', include(contact_router.urls)),
     #   url(r'^', include(contact_phone_router.urls)),
     url(r'^admin', admin.site.urls),
     url(r'^auth', include('authentication.urls')),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'', AngularApp.as_view(), name="angular_app")
 ]
 if not settings.DEBUG:
     urlpatterns += [
