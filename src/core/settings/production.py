@@ -5,7 +5,7 @@ Django production settings for core project
 import os
 import json
 import dj_database_url
-
+from django_sharding_library.settings_helpers import database_config, database_configs
 SECRET_KEY = os.environ.get(
     "SECRET_KEY", 'iw7&5xlpe_*jk*vd=0z4hs#o=kg1g9ze7xx@528o3tq!(h!qx$')
 
