@@ -179,9 +179,8 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.sendgrid.net'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'ui'),
     os.path.join(BASE_DIR, '..', 'static'),
-    os.path.join(BASE_DIR, '..', 'ui/node_modules'),
+    os.path.join(BASE_DIR, '..', 'static/ui/node_modules'),
 
 )
 STATICFILES_FINDERS = (
