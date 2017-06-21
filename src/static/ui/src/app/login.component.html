@@ -1,17 +1,27 @@
-<div>
-    <h1>
-        Please enter your username and password to log in.
-    </h1>
-    <div class="form-group form-actions">
-        <span>
-            Username: <input  [(ngModel)]="credentials.username" name="username" type="text" class="form-control text-ht" autofocus placeholder="Username">
-        </span><br>
+<div class="outer">
+    <div class="middle">
+        <div class="inner">
+            <md-card class="login-card">
+                <md-card-header>
+                    <md-card-title>
+                        <h2>LogIn.</h2>
+                    </md-card-title>
+                </md-card-header>
+                <md-card-content>
+                    <div class="form-group form-actions">
+                        <span>
+                            Username: <input  [(ngModel)]="credentials.username" name="username" type="text" class="form-control text-ht" autofocus placeholder="Username">
+                        </span><br>
+                    </div>
+                    <div  class="form-group form-actions">
+                        <span>
+                            Password: <input  [(ngModel)]="credentials.password" type="password" name="password" class="form-control password text-ht" name="password" placeholder="Password">
+                        </span>
+                    </div>
+                    <button (click)="login(credentials)">LogIn
+                    </button>
+                </md-card-content>
+            </md-card>
+        </div>
     </div>
-    <div  class="form-group form-actions">
-        <span>
-            Password: <input  [(ngModel)]="credentials.password" type="password" name="password" class="form-control password text-ht" name="password" placeholder="Password">
-        </span>
-    </div>
-    <button (click)="login(credentials)">LogIn
-    </button>
 </div>
