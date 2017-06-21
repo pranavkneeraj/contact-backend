@@ -64,14 +64,14 @@ router = ExtendedSimpleRouter()
 #     r'phones', ContactPhoneViewSet, base_name='contact-phones')
 
 
-urlpatterns = static(settings.ANGULAR_URL, document_root=settings.ANGULAR_ROOT)+ [
-    url(r'^', include(router.urls)),
+urlpatterns = static(settings.ANGULAR_URL, document_root=settings.ANGULAR_ROOT) + [
+    url(r'^api/', include(router.urls)),
     #    url(r'^', include(contact_router.urls)),
     #   url(r'^', include(contact_phone_router.urls)),
     url(r'^admin', admin.site.urls),
     url(r'^auth', include('authentication.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'', AngularApp.as_view(), name="angular_app")
+    url(r'^$', AngularApp.as_view(), name="angular_app")
 ]
 if not settings.DEBUG:
     urlpatterns += [
