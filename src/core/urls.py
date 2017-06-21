@@ -71,10 +71,11 @@ urlpatterns = static(settings.ANGULAR_URL, document_root=settings.ANGULAR_ROOT) 
     url(r'^admin', admin.site.urls),
     url(r'^auth', include('authentication.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'', AngularApp.as_view(), name="angular_app")
 ]
 if settings.DEBUG:
     urlpatterns += [
         url(r'^static/(?P<path>.*)$', serve,
             {'document_root': settings.STATIC_ROOT})
     ]
+
+urlpatterns += [url(r'', AngularApp.as_view(), name="angular_app")]
