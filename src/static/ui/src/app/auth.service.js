@@ -1,9 +1,14 @@
 "use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -13,6 +18,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var Observable_1 = require("rxjs/Observable");
@@ -24,7 +30,7 @@ var ngx_resource_1 = require("ngx-resource");
 var AuthRes = (function (_super) {
     __extends(AuthRes, _super);
     function AuthRes() {
-        return _super.apply(this, arguments) || this;
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     return AuthRes;
 }(ngx_resource_1.ResourceCRUD));
@@ -33,8 +39,7 @@ AuthRes = __decorate([
     ngx_resource_1.ResourceParams({
         url: 'api/auth/{action}',
         removeTrailingSlash: false
-    }),
-    __metadata("design:paramtypes", [])
+    })
 ], AuthRes);
 exports.AuthRes = AuthRes;
 var AuthService = (function () {
@@ -48,13 +53,12 @@ var AuthService = (function () {
     }
     AuthService.prototype.login = function (credentials) {
         var _this = this;
-        console.log('in service');
         var username = credentials['username'];
         var password = credentials['password'];
         var body = JSON.stringify({ username: username, password: password });
         var options = this._contentHeaderService.getOptions(null);
         console.log(this._http);
-        return this._http.post(this._sharedService.api_url + 'api/auth/login/', body, options)
+        return this._http.post(this._sharedService.api_url + 'auth/login', body, options)
             .map(function (response) { return _this.handleLoginResponse(response); })
             .catch(this.handleLoginError);
     };
@@ -69,11 +73,11 @@ var AuthService = (function () {
             this._cookieService.put('token', body.token);
             this._router.navigate(['']);
             this.invalidCredentials = false; // set here coz its value remains true after perform logout and
-            //needs to be false after the login
             return true;
         }
     };
     AuthService.prototype.handleLoginError = function (err) {
+        console.log(err);
         var body = err.json();
         if (body.non_field_errors) {
             return Observable_1.Observable.throw(body.non_field_errors[0]);
@@ -81,6 +85,18 @@ var AuthService = (function () {
         else {
             return Observable_1.Observable.throw('Both fields are mandatory');
         }
+    };
+    AuthService.prototype.setUserData = function (res) {
+        this._sharedService.user = res.json();
+        return res.json();
+    };
+    AuthService.prototype.me = function () {
+        var _this = this;
+        var token = this._cookieService.get('token');
+        //this._http._defaultOptions.headers.append('Authorization', 'token');
+        return this._http.get(this._sharedService.api_url + 'auth/me')
+            .map(function (response) { return _this.setUserData(response); })
+            .catch(this.handleLoginError);
     };
     return AuthService;
 }());

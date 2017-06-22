@@ -8,12 +8,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var shared_service_js_1 = require("./shared.service.js");
 var ngx_cookie_1 = require("ngx-cookie");
 var auth_service_js_1 = require("./auth.service.js");
-console.log(auth_service_js_1.AuthRes);
 var AppComponent = (function () {
     function AppComponent(authRes, router, elm, _sharedService, _cookieService) {
         this.authRes = authRes;
@@ -45,7 +45,7 @@ var AppComponent = (function () {
 AppComponent = __decorate([
     core_1.Component({
         selector: 'my-app',
-        template: "\n    <router-outlet></router-outlet>\n  ",
+        template: "\n    <span *ngIf=\"_sharedService.user\"> <h1>{{_sharedService.user.username}}</h1> </span>\n\n    <router-outlet></router-outlet>\n    <span *ngIf=\"_sharedService.user\"> <h1>{{_sharedService.user.shard  }}</h1> </span>\n  ",
         styleUrls: ['./ng/src/app/app.component.css']
     }),
     __metadata("design:paramtypes", [auth_service_js_1.AuthRes, router_1.Router, core_1.ElementRef, shared_service_js_1.SharedService, ngx_cookie_1.CookieService])

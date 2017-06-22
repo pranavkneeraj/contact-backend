@@ -66,7 +66,6 @@ class ResetPasswordSerializer(serializers.Serializer):
             user = User.objects.get(username=validated_data.get('user'))
         except User.DoesNotExist:
             raise serializers.ValidationError("User Does Not Exist")
-
         user.set_password(validated_data.get('new_password'))
         user.save()
         return user
@@ -87,7 +86,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'first_name', 'last_name',
-                  'username', 'email', 'is_active', 'is_superuser')
+                  'username', 'email', 'is_active', 'is_superuser', 'shard')
 
     def validate_username(self, username):  # pylint: disable=no-self-use
         """

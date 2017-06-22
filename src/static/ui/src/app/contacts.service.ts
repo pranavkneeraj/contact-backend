@@ -8,5 +8,5 @@ import { IUser } from './user.js'
 @Injectable()
 export class ContactsService {
 
-    constructor()
+    constructor(){}
 }

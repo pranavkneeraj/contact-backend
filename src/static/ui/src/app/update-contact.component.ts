@@ -1,4 +1,3 @@
-import { MdDialogRef } from '@angular/material';
 import { Component, Output, EventEmitter } from '@angular/core';
 import { MdDialogTitle, MdIconRegistry, MdDialogRef } from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';

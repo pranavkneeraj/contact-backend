@@ -18,6 +18,7 @@
                             Password: <input  [(ngModel)]="credentials.password" type="password" name="password" class="form-control password text-ht" name="password" placeholder="Password">
                         </span>
                     </div>
+                    <h5 class="text-danger"> {{error}}</h5>
                     <button (click)="login(credentials)">LogIn
                     </button>
                 </md-card-content>

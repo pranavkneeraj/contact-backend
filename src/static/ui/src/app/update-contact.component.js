@@ -8,9 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var material_1 = require("@angular/material");
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var material_2 = require("@angular/material");
+var material_1 = require("@angular/material");
 var platform_browser_1 = require("@angular/platform-browser");
 var UpdateContactComponent = (function () {
     function UpdateContactComponent(dialogRef, iconRegistry, sanitizer) {
@@ -53,7 +53,7 @@ UpdateContactComponent = __decorate([
         selector: 'update-contact',
         templateUrl: './ng/src/app/update-contact.component.html',
     }),
-    __metadata("design:paramtypes", [material_1.MdDialogRef, material_2.MdIconRegistry, platform_browser_1.DomSanitizer])
+    __metadata("design:paramtypes", [material_1.MdDialogRef, material_1.MdIconRegistry, platform_browser_1.DomSanitizer])
 ], UpdateContactComponent);
 exports.UpdateContactComponent = UpdateContactComponent;
 //# sourceMappingURL=update-contact.component.js.map

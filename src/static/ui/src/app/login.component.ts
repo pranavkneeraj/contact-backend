@@ -13,12 +13,11 @@ class Login {
     selector: 'log-in',
     templateUrl: './login.component.html'
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent  {
     error:string;
     has_error:boolean;
     login_response:boolean = false;
     private credentials:Login;
-
 
     constructor(private authRes:AuthRes, private router: Router) {
         this.credentials = new Login();

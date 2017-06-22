@@ -4,16 +4,18 @@ import { AppRoutingModule } from'./app-routing.module.js';
 import { SharedService } from './shared.service.js';
 import { CookieService } from 'ngx-cookie';
 import { AuthRes } from './auth.service.js'
-console.log(AuthRes)
+import { AuthService } from './auth.service.js'
 @Component({
   selector: 'my-app',
   template: `
+    <span *ngIf="_sharedService.user"> <h1>{{_sharedService.user.username}}</h1> </span>
+
     <router-outlet></router-outlet>
+    <span *ngIf="_sharedService.user"> <h1>{{_sharedService.user.shard  }}</h1> </span>
   `,
   styleUrls: ['./ng/src/app/app.component.css']
 })
 export class AppComponent implements OnInit {
-
     constructor(private authRes: AuthRes, private router: Router, elm: ElementRef, private _sharedService:SharedService, private _cookieService:CookieService) {
         _sharedService.api_url = elm.nativeElement.getAttribute('api_url');
     }

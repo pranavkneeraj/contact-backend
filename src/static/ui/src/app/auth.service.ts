@@ -46,13 +46,12 @@ export class AuthService {
 
 
     login(credentials:any): Observable<any> {
-        console.log('in service');
         let username:string=credentials['username'];
         let password:string=credentials['password'];
         let body = JSON.stringify({ username, password });
         let options = this._contentHeaderService.getOptions(null);
-        console.log(this._http)
-        return this._http.post(this._sharedService.api_url+'api/auth/login/', body, options)
+        console.log(this._http);
+        return this._http.post(this._sharedService.api_url+'auth/login', body, options)
             .map((response:Response) => this.handleLoginResponse(response))
             .catch(this.handleLoginError);
     }
@@ -67,18 +66,30 @@ export class AuthService {
             this._cookieService.put('token', body.token);
             this._router.navigate(['']);
             this.invalidCredentials = false; // set here coz its value remains true after perform logout and
-            //needs to be false after the login
             return true;
         }
     }
 
     private handleLoginError(err: Response) {
+        console.log(err)
         let body = err.json();
         if (body.non_field_errors) {
             return Observable.throw(body.non_field_errors[0]);
         }else {
             return Observable.throw('Both fields are mandatory');
         }
+    }
+    private setUserData(res:Response) {
+            this._sharedService.user=res.json() ;
+            return res.json();
+    }
+
+    me():Observable<any> {
+        let token = this._cookieService.get('token');
+        //this._http._defaultOptions.headers.append('Authorization', 'token');
+        return this._http.get(this._sharedService.api_url+'auth/me')
+            .map((response:Response) => this.setUserData(response))
+            .catch(this.handleLoginError);
     }
 
 }
