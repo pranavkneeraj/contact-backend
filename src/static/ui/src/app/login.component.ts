@@ -1,7 +1,7 @@
 import { Component , OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 //import { Cookie } from 'ng2-cookies/ng2-cookies';
-import { AuthService } from './auth.service.js';
+import { AuthRes } from './auth.service.js';
 
 class Login {
     username:string;
@@ -20,23 +20,23 @@ export class LoginComponent implements OnInit {
     private credentials:Login;
 
 
-    constructor(private authService: AuthService, private router: Router) {
+    constructor(private authRes:AuthRes, private router: Router) {
         this.credentials = new Login();
         this.has_error = false;
     }
 
-    ngOnInit() {
-        console.log('XXXXXX');
-    }
-
     login(credentials:Login): void {
-        console.log('in login')
-        this.login_response = true;
-        this.authService.login(credentials)
-            .subscribe(
-                data => this.handleSuccess(data),
-                err => this.logError(err)
-            );
+        credentials['action'] = 'login';
+        let login = this.authRes.save(credentials);
+        login.$observable
+            .subscribe((user:any) => {
+                this.login_response = true;
+
+                console.log("asdasd",user.token);
+            }, (err:any) => {
+                this.login_response = true;
+                console.log(err);
+            })
     };
 
     handleSuccess(response:any) {

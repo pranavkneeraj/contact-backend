@@ -1,44 +1,138 @@
-<h1 md-dialog-title>
-    Contact Detail
-</h1>
+<span md-dialog-title>
+    <h2>Contact Details</h2>
+</span>
 <div md-dialog-content>
     <form class="example-form">
         <md-input-container class="example-full-width">
             <input mdInput placeholder="Contact Name">
-            </md-input-container>
-            <div>
-                <md-card class="example-card" *ngFor="let detail of phoneDetails">
-                    <md-select placeholder="Phone Type">
+        </md-input-container>
+        <md-card class="example-card col-sm-12">
+            <div *ngFor="let detail of phoneDetails">
+                <md-grid-list  cols="40" rowHeight="40px">
+                    <md-grid-tile [colspan]=8>
+                        <md-select placeholder="Phone Type" class="example-full-width md-select-margin">
+                            <md-option *ngFor="let type of phoneTypes" [value]="type.value">
+                                {{type.viewValue}}
+                            </md-option>
+                        </md-select>
+                    </md-grid-tile>
+                    <md-grid-tile [colspan]=2>
+
+                    </md-grid-tile>
+                    <md-grid-tile [colspan]=22>
+                        <md-input-container class="example-full-width">
+                            <input mdInput placeholder="Number">
+                        </md-input-container>
+                    </md-grid-tile>
+                    <md-grid-tile [colspan]=1>
+
+                    </md-grid-tile>
+
+                    <md-grid-tile [colspan]=7>
+                        <button md-raised-button class="btn btn-default">
+                            <span>Remove</span>
+                        </button>
+                    </md-grid-tile>
+                </md-grid-list>
+                <br>
+            </div>
+            <button type="button" class="btn btn-primary pull-right" (click)="addPhoneDetail()">
+                <span>Add Phone</span>
+            </button>
+
+        </md-card>
+        <md-card class="example-card col-sm-12">
+            <div *ngFor="let detail of emailDetails">
+            <md-grid-list cols="40" rowHeight="40px">
+                <md-grid-tile [colspan]=8>
+                    <md-select placeholder="Phone Type" class="example-full-width md-select-margin">
                         <md-option *ngFor="let type of phoneTypes" [value]="type.value">
                             {{type.viewValue}}
                         </md-option>
                     </md-select>
+                </md-grid-tile>
+                <md-grid-tile [colspan]=2>
+
+                </md-grid-tile>
+                <md-grid-tile [colspan]=22>
                     <md-input-container class="example-full-width">
-                        <input mdInput placeholder="Number">
+                        <input mdInput placeholder="Email">
                     </md-input-container>
-                </md-card>
-                <button type="button" style="margin:10px 0px 10px 0px;" class="btn btn-primary " (click)="addPhoneDetail()">
-                    <span>Add Phone</span>
+                </md-grid-tile>
+                <md-grid-tile [colspan]=1>
+
+                </md-grid-tile>
+
+                <md-grid-tile [colspan]=7>
+                    <button md-raised-button class="btn btn-default">
+                        <span>Remove</span>
+                    </button>
+                </md-grid-tile>
+            </md-grid-list>
+            <br>
+            </div>
+            <button type="button" class="btn btn-primary pull-right" (click)="addEmailDetail()">
+            <span>Add Email</span>
+        </button>
+            <br><br><br><br>
+            <div class="text-center">
+                <button md-raised-button class="btn-success" (click)="close(false)">
+                    <span>Save</span>
+                </button>
+                <button md-raised-button class="btn btn-default" (click)="close(false)">
+                    <span>Cancel</span>
                 </button>
             </div>
-        <md-card class="example-card" *ngFor="let detail of emailDetails">
-            <md-select placeholder="Email Type">
-                <md-option *ngFor="let type of emailTypes" [value]="type.value">
-                    {{type.viewValue}}
-                </md-option>
-            </md-select>
-            <md-input-container class="example-full-width">
-                <input mdInput placeholder="Email">
-            </md-input-container>
         </md-card>
-        <button type="button" style="margin:10px 0px 10px 0px;" class="btn btn-primary" (click)="addEmailDetail()">
-            <span>Add Email</span>
-        </button><br><br><br>
-        <button type="button" class="btn btn-success">
-            <span>Save</span>
-        </button>
-        <button type="button" class="btn btn-default" md-dialog-close>
-            <span>Cancel</span>
-        </button><br>
     </form>
 </div>
+
+
+
+
+
+
+<!-- <h1 md-dialog-title>
+     Contact Detail
+     </h1>
+     <div md-dialog-content>
+     <form class="example-form">
+     <md-input-container class="example-full-width">
+     <input mdInput placeholder="Contact Name">
+     </md-input-container>
+     <div>
+     <md-card class="example-card" *ngFor="let detail of phoneDetails">
+     <md-select placeholder="Phone Type">
+     <md-option *ngFor="let type of phoneTypes" [value]="type.value">
+     {{type.viewValue}}
+     </md-option>
+     </md-select>
+     <md-input-container class="example-full-width">
+     <input mdInput placeholder="Number">
+     </md-input-container>
+     </md-card>
+     <button type="button" style="margin:10px 0px 10px 0px;" class="btn btn-primary " (click)="addPhoneDetail()">
+     <span>Add Phone</span>
+     </button>
+     </div>
+     <md-card class="example-card" *ngFor="let detail of emailDetails">
+     <md-select placeholder="Email Type">
+     <md-option *ngFor="let type of emailTypes" [value]="type.value">
+     {{type.viewValue}}
+     </md-option>
+     </md-select>
+     <md-input-container class="example-full-width">
+     <input mdInput placeholder="Email">
+     </md-input-container>
+     </md-card>
+     <button type="button" style="margin:10px 0px 10px 0px;" class="btn btn-primary" (click)="addEmailDetail()">
+     <span>Add Email</span>
+     </button><br><br><br>
+     <button type="button" class="btn btn-success">
+     <span>Save</span>
+     </button>
+     <button type="button" class="btn btn-default" md-dialog-close>
+     <span>Cancel</span>
+     </button><br>
+     </form>
+     </div> -->

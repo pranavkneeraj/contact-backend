@@ -195,7 +195,8 @@ ANGULAR_URL = '/ng/'
 
 ANGULAR_ROOT = os.path.join(BASE_DIR, '..', 'static/ui')
 
-API_URL = "https://product-services.herokuapp.com/"
+#API_URL =   "https://product-services.herokuapp.com/"
+API_URL = "/"
 
 # DJANGO_SHARDING_SETTINGS = {"default": {
 #     "BUCKETING_STRATEGY": ModBucketingStrategy('default', DATABASES)}}

@@ -15,11 +15,12 @@ import { UpdateContactComponent } from './update-contact.component.js';
 import { ContactListComponent }  from './contact-list.component.js';
 import { ContactDetailsComponent } from './contact-details.component.js';
 import { SharedService } from './shared.service.js';
-import { AuthService } from './auth.service.js';
+import { AuthRes } from './auth.service.js';
 import { ContentHeaderService } from './content.header.service.js';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '@angular/material';
 import {MdIconModule} from '@angular/material';
+import { ResourceModule } from 'ngx-resource';
 
 import { CookieModule } from 'ngx-cookie';
 
@@ -30,6 +31,7 @@ import { CookieModule } from 'ngx-cookie';
         HttpModule,
         BrowserAnimationsModule,
         CookieModule.forRoot(),
+        ResourceModule.forRoot(),
         AppRoutingModule,
         MaterialModule,
         MdIconModule
@@ -45,7 +47,7 @@ import { CookieModule } from 'ngx-cookie';
     entryComponents: [
         UpdateContactComponent,
     ],
-    providers: [ SharedService, AuthService,  ContentHeaderService],
+    providers: [ SharedService, AuthRes, ContentHeaderService],
     bootstrap: [ AppComponent ]
 })
 export class AppModule { }

@@ -69,7 +69,7 @@ urlpatterns = static(settings.ANGULAR_URL, document_root=settings.ANGULAR_ROOT) 
     #    url(r'^', include(contact_router.urls)),
     #   url(r'^', include(contact_phone_router.urls)),
     url(r'^admin', admin.site.urls),
-    url(r'^auth', include('authentication.urls')),
+    url(r'^api/auth', include('authentication.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
 if settings.DEBUG:
@@ -78,4 +78,5 @@ if settings.DEBUG:
             {'document_root': settings.STATIC_ROOT})
     ]
 
-urlpatterns += [url(r'', AngularApp.as_view(), name="angular_app")]
+urlpatterns += [url(r'^$|contact-list|login',
+                    AngularApp.as_view(), name="angular_app")]

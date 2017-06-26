@@ -5,6 +5,31 @@ import { CookieService } from 'ngx-cookie';
 import { Http, Response} from '@angular/http';
 import { ContentHeaderService } from './content.header.service.js';
 import { SharedService } from './shared.service.js';
+import { ResourceCRUD, ResourceParams } from 'ngx-resource';
+
+interface User {
+    id?: number;
+    first_name?: string;
+    last_name?: string;
+    username?: string;
+    email?: string;
+    //shard?: string;
+    is_active?: boolean;
+    is_superuser?: boolean;
+}
+
+interface IQuery {
+    action?:string;
+}
+@Injectable()
+@ResourceParams({
+    url: 'api/auth/{action}',
+    removeTrailingSlash:false
+})
+export class AuthRes extends ResourceCRUD<IQuery, any, any> {
+
+}
+
 
 @Injectable()
 export class AuthService {
@@ -27,7 +52,7 @@ export class AuthService {
         let body = JSON.stringify({ username, password });
         let options = this._contentHeaderService.getOptions(null);
         console.log(this._http)
-        return this._http.post(this._sharedService.api_url+'auth/login', body, options)
+        return this._http.post(this._sharedService.api_url+'api/auth/login/', body, options)
             .map((response:Response) => this.handleLoginResponse(response))
             .catch(this.handleLoginError);
     }

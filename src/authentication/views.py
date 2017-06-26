@@ -80,7 +80,7 @@ class MeView(APIView):
         get method for which user is login
         """
         serializer = UserSerializer(request.user)
-        return Response(serializer.data, status=200)
+        return Response([serializer.data], status=200)
 
 
 class UserViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestors

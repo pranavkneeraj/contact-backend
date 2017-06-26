@@ -20,8 +20,7 @@ body, input[text], button {
   color: #888;
   font-family: Cambria, Georgia;
 }
-a {
-  cursor: pointer;
+a {  cursor: pointer;
   cursor: hand;
 }
 button {
@@ -88,7 +87,7 @@ nav a.active {
 .login-card {
   width: 50%;
   margin-left: auto;
-  margin-right: auto; 
+  margin-right: auto;
 }
 .outer {
     display: table;
@@ -104,6 +103,12 @@ nav a.active {
 
 .inner {
     margin-left: auto;
-    margin-right: auto; 
+    margin-right: auto;
     width: /*whatever width you want*/;
+}
+.mat-toolbar-row {
+  display: grid !important;
+}
+small {
+  font-size: 65% !important;
 }

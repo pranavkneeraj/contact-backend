@@ -35,7 +35,7 @@
       'rxjs':                      'npm:rxjs',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
       'ngx-cookie':                 'npm:ngx-cookie/bundles/ngx-cookie.umd.js',
-
+      'ngx-resource':               'npm:ngx-resource/bundles/ngx-resource.umd.js',
       // 'lodash': 'npm:lodash/lodash.min.js ',
       // 'ng2-completer': 'npm:ng2-completer/ng2-completer.umd.js ',
       // 'ng2-smart-table': 'npm:ng2-smart-table/bundles/table.umd.js',

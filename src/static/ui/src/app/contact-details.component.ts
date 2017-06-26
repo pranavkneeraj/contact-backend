@@ -39,6 +39,7 @@ export class ContactDetailsComponent {
     }
 
     addPhoneDetail() {
+        console.log('adding phone');
         this.phoneDetails.push('');
     }
 

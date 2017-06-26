@@ -1,4 +1,9 @@
 "use strict";
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +13,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var Observable_1 = require("rxjs/Observable");
@@ -16,6 +20,23 @@ var ngx_cookie_1 = require("ngx-cookie");
 var http_1 = require("@angular/http");
 var content_header_service_js_1 = require("./content.header.service.js");
 var shared_service_js_1 = require("./shared.service.js");
+var ngx_resource_1 = require("ngx-resource");
+var AuthRes = (function (_super) {
+    __extends(AuthRes, _super);
+    function AuthRes() {
+        return _super.apply(this, arguments) || this;
+    }
+    return AuthRes;
+}(ngx_resource_1.ResourceCRUD));
+AuthRes = __decorate([
+    core_1.Injectable(),
+    ngx_resource_1.ResourceParams({
+        url: 'api/auth/{action}',
+        removeTrailingSlash: false
+    }),
+    __metadata("design:paramtypes", [])
+], AuthRes);
+exports.AuthRes = AuthRes;
 var AuthService = (function () {
     function AuthService(_http, _router, _cookieService, _contentHeaderService, _sharedService) {
         this._http = _http;
@@ -33,7 +54,7 @@ var AuthService = (function () {
         var body = JSON.stringify({ username: username, password: password });
         var options = this._contentHeaderService.getOptions(null);
         console.log(this._http);
-        return this._http.post(this._sharedService.api_url + 'auth/login', body, options)
+        return this._http.post(this._sharedService.api_url + 'api/auth/login/', body, options)
             .map(function (response) { return _this.handleLoginResponse(response); })
             .catch(this.handleLoginError);
     };
