@@ -19,11 +19,11 @@ import { AuthRes } from './auth.service.js';
 import { ContentHeaderService } from './content.header.service.js';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '@angular/material';
-import {MdIconModule} from '@angular/material';
+
+import { MdIconModule } from '@angular/material';
 import { ResourceModule } from 'ngx-resource';
-
 import { CookieModule } from 'ngx-cookie';
-
+console.log(ResourceModule)
 @NgModule({
     imports: [
         BrowserModule,

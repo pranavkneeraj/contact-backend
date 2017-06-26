@@ -58,12 +58,19 @@ class BaseContactViewset(viewsets.ModelViewSet):
         if self.kwargs.get('parent_lookup_phone__contact'):
             self.shard = Contact.get_shard_from_id(
                 self.kwargs.get('parent_lookup_phone__contact'))
+        if self.request.method in ['POST', 'PATCH', 'PUT'] and not self.request.data.get('contact_id'):
+            if not type(self.request.data) == dict:
+                self.request.data._mutable = True
+            self.request.data['contact_id'] = int(kwargs.get(
+                'parent_lookup_phone'))
+            if not type(self.request.data) == dict:
+                self.request.data._mutable = False
         super(BaseContactViewset, self).initial(request, args, kwargs)
 
     def get_queryset(self, *args, **kwargs):
         qs = self.model.objects.using(self.shard).all()
-        if kwargs.get('parent_lookup_phone'):
-            qs = qs.filter(contact_id=kwargs.get('parent_lookup_phone'))
+        if self.kwargs.get('parent_lookup_phone'):
+            qs = qs.filter(contact_id=self.kwargs.get('parent_lookup_phone'))
         return qs
 
     def get_serializer_context(self):
@@ -75,52 +82,54 @@ class BaseContactViewset(viewsets.ModelViewSet):
             'shard': self.shard
         }
 
-    def update(self, request, *args, **kwargs):
-        qs = self.get_queryset().filter(pk=kwargs["pk"])
-        data = dict(request.data.items())
-        if not data['contact_id']:
-            data['contact_id'] = kwargs[self.parent_lookup]
-        qs.update(**data)
-        return response.Response(self.serializer_class(qs[0]).data)
+    # def update(self, request, *args, **kwargs):
+    #     qs = self.get_queryset().filter(pk=kwargs["pk"])
+    #     data = dict(request.data.items())
+    #     if not data['contact_id']:
+    #         data['contact_id'] = kwargs[self.parent_lookup]
+    #     qs.update(**data)
+    #     return response.Response(self.serializer_class(qs[0]).data)
 
-    def create(self, request, *args, **kwargs):
-        if not type(request.data) == list:
-            data_list = [dict(request.data.items())]
-        else:
-            data_list = request.data
-        res = []
-        print(data_list)
-        exit()
-        for data in data_list:
-            data['contact_id'] = kwargs['parent_loopup_phone']
-            ser = self.serializer_class(data=data)
-            ser.is_valid(raise_exception=True)
-            obj = self.model.objects.using(self.shard).create(**ser.data)
-            res.append(self.serializer_class(obj.__dict__).data)
-        print(response.Response(res[0] if len(res) == 1 else res))
-        return response.Response(res[0] if len(res) == 1 else res)
+    # def create(self, request, *args, **kwargs):
+    #     if not type(request.data) == list:
+    #         data_list = [dict(request.data.items())]
+    #     else:
+    #         data_list = request.data
+    #     res = []
+    #     print(data_list)
+    #     exit()
+    #     for data in data_list:
+    #         data['contact_id'] = kwargs['parent_loopup_phone']
+    #         ser = self.serializer_class(data=data)
+    #         ser.is_valid(raise_exception=True)
+    #         obj = self.model.objects.using(self.shard).create(**ser.data)
+    #         res.append(self.serializer_class(obj.__dict__).data)
+    #     print(response.Response(res[0] if len(res) == 1 else res))
+    #     return response.Response(res[0] if len(res) == 1 else res)
 
-        # data = dict(request.data.items())
-        # data['contact_id'] = kwargs['parent_lookup_phone']
-        # ser = self.serializer_class(data=data)
-        # if ser.is_valid():
-        #     obj = self.model.objects.using(self.shard).create(**ser.data)
-        #     return response.Response(self.serializer_class(obj.__dict__).data)
-        # return response.Response(ser.errors())
+    #     # data = dict(request.data.items())
+    #     # data['contact_id'] = kwargs['parent_lookup_phone']
+    #     # ser = self.serializer_class(data=data)
+    #     # if ser.is_valid():
+    #     #     obj = self.model.objects.using(self.shard).create(**ser.data)
+    #     #     return response.Response(self.serializer_class(obj.__dict__).data)
+    #     # return response.Response(ser.errors())
 
-    def retrieve(self, request, *args, **kwargs):
-        try:
-            return response.Response(self.get_queryset(*args, **kwargs).values().get(pk=kwargs['pk']))
-        except:
-            return response.Response({
-                "detail": "Not found."
-            })
+    # def retrieve(self, request, *args, **kwargs):
+    #     try:
+    #         return response.Response(self.get_queryset(*args, **kwargs).values().get(pk=kwargs['pk']))
+    #     except:
+    #         return response.Response({
+    #             "detail": "Not found."
+    #         })
 
-    def list(self, request, *args, **kwargs):
-        return response.Response(self.serializer_class(list(self.get_queryset(*args, **kwargs).values()), many=True).data)
+    # def list(self, request, *args, **kwargs):
+    # return
+    # response.Response(self.serializer_class(list(self.get_queryset(*args,
+    # **kwargs).values()), many=True).data)
 
-    def partial_update(self, request, *args, **kwargs):
-        return self.update(self, request, *args, **kwargs)
+    # def partial_update(self, request, *args, **kwargs):
+    #     return self.update(self, request, *args, **kwargs)
 
 
 class ContactPhoneViewSet(BaseContactViewset, NestedViewSetMixin):  # pylint: disable=too-many-ancestors

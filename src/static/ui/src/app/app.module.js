@@ -24,6 +24,7 @@ var material_1 = require("@angular/material");
 var material_2 = require("@angular/material");
 var ngx_resource_1 = require("ngx-resource");
 var ngx_cookie_1 = require("ngx-cookie");
+console.log(ngx_resource_1.ResourceModule);
 var AppModule = (function () {
     function AppModule() {
     }

@@ -13,7 +13,7 @@ interface User {
     last_name?: string;
     username?: string;
     email?: string;
-    //shard?: string;
+    shard?: string;
     is_active?: boolean;
     is_superuser?: boolean;
 }
@@ -29,7 +29,6 @@ interface IQuery {
 export class AuthRes extends ResourceCRUD<IQuery, any, any> {
 
 }
-
 
 @Injectable()
 export class AuthService {
