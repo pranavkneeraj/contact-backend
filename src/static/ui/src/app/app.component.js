@@ -26,6 +26,8 @@ var AppComponent = (function () {
         var _this = this;
         var me = this.authRes.query({ 'action': 'me' });
         me.$observable.subscribe(function (user) {
+            console.log(user);
+            _this._sharedService.user = user[0];
             _this.router.navigate(['/contact-list']);
         }, function (err) {
             _this.router.navigate(['/login']);
@@ -45,7 +47,7 @@ var AppComponent = (function () {
 AppComponent = __decorate([
     core_1.Component({
         selector: 'my-app',
-        template: "\n    <span *ngIf=\"_sharedService.user\"> <h1>{{_sharedService.user.username}}</h1> </span>\n\n    <router-outlet></router-outlet>\n    <span *ngIf=\"_sharedService.user\"> <h1>{{_sharedService.user.shard  }}</h1> </span>\n  ",
+        template: "\n        <div class=\"text-right toolbar\" *ngIf=\"_sharedService.user\">\n        <span class=\"toolbar-text-margin\">\n        <div class=\"toolbar-text\">\n        <span>User: {{_sharedService.user.username | uppercase}} </span>\n        </div>\n        <div>\n    Database : {{_sharedService.user.shard | uppercase}}\n    </div>\n        </span>\n    </div>\n\n        <router-outlet></router-outlet>\n        ",
         styleUrls: ['./ng/src/app/app.component.css']
     }),
     __metadata("design:paramtypes", [auth_service_js_1.AuthRes, router_1.Router, core_1.ElementRef, shared_service_js_1.SharedService, ngx_cookie_1.CookieService])

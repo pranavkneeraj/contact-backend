@@ -35,12 +35,7 @@
       'rxjs':                      'npm:rxjs',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
       'ngx-cookie':                 'npm:ngx-cookie/bundles/ngx-cookie.umd.js',
-<<<<<<< 4523346a47bd49305c3b2fd17410fb71a7b1c38e
-      'ngx-resource':               'npm:ngx-resource/bundles/ngx-resource.umd.js',
-=======
       'ngx-resource':               'npm:ngx-resource/bundles/ngx-resource.umd.js'
-
->>>>>>> backend traditional
       // 'lodash': 'npm:lodash/lodash.min.js ',
       // 'ng2-completer': 'npm:ng2-completer/ng2-completer.umd.js ',
       // 'ng2-smart-table': 'npm:ng2-smart-table/bundles/table.umd.js',

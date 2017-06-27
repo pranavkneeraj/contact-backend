@@ -30,8 +30,7 @@ export class LoginComponent  {
         login.$observable
             .subscribe((user:any) => {
                 this.login_response = true;
-
-                console.log("asdasd",user.token);
+                this.router.navigate(["/"]);
             }, (err:any) => {
                 this.login_response = true;
                 console.log(err);

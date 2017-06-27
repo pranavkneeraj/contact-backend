@@ -6,14 +6,22 @@ import { CookieService } from 'ngx-cookie';
 import { AuthRes } from './auth.service.js'
 import { AuthService } from './auth.service.js'
 @Component({
-  selector: 'my-app',
-  template: `
-    <span *ngIf="_sharedService.user"> <h1>{{_sharedService.user.username}}</h1> </span>
+    selector: 'my-app',
+    template: `
+        <div class="text-right toolbar" *ngIf="_sharedService.user">
+        <span class="toolbar-text-margin">
+        <div class="toolbar-text">
+        <span>User: {{_sharedService.user.username | uppercase}} </span>
+        </div>
+        <div>
+    Database : {{_sharedService.user.shard | uppercase}}
+    </div>
+        </span>
+    </div>
 
-    <router-outlet></router-outlet>
-    <span *ngIf="_sharedService.user"> <h1>{{_sharedService.user.shard  }}</h1> </span>
-  `,
-  styleUrls: ['./ng/src/app/app.component.css']
+        <router-outlet></router-outlet>
+        `,
+    styleUrls: ['./ng/src/app/app.component.css']
 })
 export class AppComponent implements OnInit {
     constructor(private authRes: AuthRes, private router: Router, elm: ElementRef, private _sharedService:SharedService, private _cookieService:CookieService) {
@@ -23,9 +31,11 @@ export class AppComponent implements OnInit {
     ngOnInit() {
         let me=this.authRes.query({'action':'me'});
         me.$observable.subscribe((user: any) => {
+            console.log(user);
+            this._sharedService.user = user[0];
             this.router.navigate(['/contact-list']);
         }, (err: any) => {
-             this.router.navigate(['/login']);
+            this.router.navigate(['/login']);
         })
         //this.userRes.post({'action':'login'}, (user:any) => {})
 

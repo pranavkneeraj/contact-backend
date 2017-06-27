@@ -33,7 +33,7 @@ var LoginComponent = (function () {
         login.$observable
             .subscribe(function (user) {
             _this.login_response = true;
-            console.log("asdasd", user.token);
+            _this.router.navigate(["/"]);
         }, function (err) {
             _this.login_response = true;
             console.log(err);
