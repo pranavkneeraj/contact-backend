@@ -144,9 +144,9 @@ REST_KNOX = {
     'TOKEN_TTL': datetime.timedelta(hours=12),
     'USER_SERIALIZER': 'knox.serializers.UserSerializer',
 }
-DATABASE_ROUTERS = ['django_sharding_library.router.ShardedRouter']
+#DATABASE_ROUTERS = ['django_sharding_library.router.ShardedRouter']
 
-#DATABASE_ROUTERS = ['core.routers.CoreRouter', ]
+DATABASE_ROUTERS = ['core.routers.CoreRouter', ]
 
 BLOCKSIZE = 16
 
